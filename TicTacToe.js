@@ -28,11 +28,13 @@ function game() {
 		}else{
 			if(isPlr1){
 				console.log("Invalid move from Player 1");
+				console.log(printBoard(board));
 				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board);
 				document.getElementById("ans").innerHTML += "Invalid move from Player 1<br><h2>PLAYER 2 WINS THE GAME BECAUSE OF FORFAIT</h2>";
 				break;
 			}else{
 				console.log("Invalid move from Player 2");
+				console.log(printBoard(board));
 				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board);
 				document.getElementById("ans").innerHTML += "Invalid move from Player 2<br><h2>PLAYER 1 WINS THE GAME BECAUSE OF FORFAIT</h2>";
 				break;
@@ -44,12 +46,16 @@ function game() {
 			if(isWinner(board)) {
 				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
 				document.getElementById("ans").innerHTML += "<h2>PLAYER 1 WINS THE GAME!</h2>";
+				document.getElementById("plr1").innerHTML += "I";
+				console.log(printBoard(board));
 				break;
 			}
 		}else{
 			if(isWinner(board)) {
 				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
 				document.getElementById("ans").innerHTML += "<h2>PLAYER 2 WINS THE GAME!</h2>";
+				document.getElementById("plr2").innerHTML += "I";
+				console.log(printBoard(board));
 				break;
 			}
 		}
@@ -61,6 +67,13 @@ function game() {
 
 
 }
+
+function game10() {
+	for(var i = 0; i < 10; i++) {
+		game();
+	}
+}
+
 
 // created the empty Tic Tac Toe board
 function createBoard() {
@@ -99,7 +112,7 @@ function playerRand(plr) {
 	}
 	
 	function rand() {
-		return Math.floor((Math.random()*2)+1);
+		return Math.floor((Math.random()*3));
 	}
 }
 
@@ -141,9 +154,10 @@ function isWinner(board) {
 			}else if(b[0][i] != "-" && b[0][i] === b[1][i] && b[1][i] === b[2][i]){
 				return true;
 			}else{
-				return false;
+				continue;
 			}
 		}
+		return false;
 	}
 }
  
