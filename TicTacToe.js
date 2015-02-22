@@ -1,29 +1,12 @@
 // TIC TAC TOE Battle
 
-/*
-ttt board >> a 3x3 double array
-player 1 & 2 code
-ttt game rules
-	if 3 X or O row, col or diag == X or O wins
-	If all spaces taken and no winner == tie (or loop 9 times because cant play more than that)
-	
-	create board
-	randomly choose player to start
-	loop 9 times
-	plr1 go 
-		if valid move 
-			if plr1 win
-				end game plr1 wins! 
-			else 
-				plr 2 go (ie restart loop)
-		else
-			unval move, end game, plr 2 wins
-*/
 
+// The main action of the Tic Tac Toe game runs in this function
 function game() {
-	var board = createBoard(); // init TTT board
-	var plr1 = new player("1");
-	var plr2 = new playerRand("2");
+	//TODO create a baord object that holds functions like updateboard, and create board.
+	var board = createBoard(); // init TTT board 
+	var plr1 = new player("1"); // player 1 is 'X'
+	var plr2 = new playerRand("2"); // player 2 is 'O'
 	var isPlr1 = choseRand(); // choose start player
 	var nextMove;
 
@@ -45,10 +28,30 @@ function game() {
 		}else{
 			if(isPlr1){
 				console.log("Invalid move from Player 1");
+				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board);
+				document.getElementById("ans").innerHTML += "Invalid move from Player 1<br><h2>PLAYER 2 WINS THE GAME BECAUSE OF FORFAIT</h2>";
+				break;
 			}else{
 				console.log("Invalid move from Player 2");
+				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board);
+				document.getElementById("ans").innerHTML += "Invalid move from Player 2<br><h2>PLAYER 1 WINS THE GAME BECAUSE OF FORFAIT</h2>";
+				break;
 			}
-			break;
+			break;// not useful..
+		}
+
+		if(isPlr1) {
+			if(isWinner(board)) {
+				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
+				document.getElementById("ans").innerHTML += "<h2>PLAYER 1 WINS THE GAME!</h2>";
+				break;
+			}
+		}else{
+			if(isWinner(board)) {
+				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
+				document.getElementById("ans").innerHTML += "<h2>PLAYER 2 WINS THE GAME!</h2>";
+				break;
+			}
 		}
 
 		isPlr1 = !isPlr1;
@@ -59,18 +62,21 @@ function game() {
 
 }
 
-
+// created the empty Tic Tac Toe board
 function createBoard() {
 	return [["-","-","-"], ["-","-","-"], ["-","-","-"]];
 }
 
+// Finds the 1st available space and plays 
 function player(plr) {
 	this.playerNum = plr;
 
 	this.move = function(b) {
 		for(var i = 0; i < b.length; i++) {
 			for(var j = 0; j < b[i].length; j++) {
-				if(b[i][j] === "-") {
+				if(b[i][j] !== "-") {
+					continue;
+				} else {
 					return [i, j];
 				}
 			}
@@ -78,13 +84,16 @@ function player(plr) {
 	};
 }
 
+// Randomly finds an empty space and plays there
 function playerRand(plr) {
 	this.playerNum = plr;
-	
-	this.move = function(b) {
+
+	this.move = function findMove(b) {
 		var c = rand();
-		var r = rand();
-		if(b[c][r] === "-") {
+        var r = rand();
+		if (b[c][r] !== "-") {
+			return findMove(b);
+		} else {
 			return [c, r];
 		}
 	}
@@ -105,6 +114,7 @@ function choseRand() {
 	}
 }
 
+//determines whether the move is valid. If the space is empty.
 function isValidMove(move, board) {
 	if(board[move[0]][move[1]] === "-") {
 		return true;
@@ -113,6 +123,31 @@ function isValidMove(move, board) {
 	}
 }
 
+//Determines if there is a winner
+function isWinner(board) {
+	var b = board; // for clarity
+	//check diagonal
+	if(b[0][0] != "-" && b[0][0] === b[1][1] && b[1][1] === b[2][2]) {
+		return true;
+	//check diagonal	
+	}else if(b[0][2] != "-" && b[0][2] === b[1][1] && b[1][1] === b[2][0]){
+		return true;
+	}else{
+		for(var i = 0; i < 3; i++) {
+			//check all horizontal 
+			if(b[i][0] != "-" && b[i][0] === b[i][1] && b[i][1] === b[i][2]) {
+				return true;
+			//check all verticals
+			}else if(b[0][i] != "-" && b[0][i] === b[1][i] && b[1][i] === b[2][i]){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+}
+ 
+// changes an empty space to the most recent move.
 function updateBoard(board,nextMove, isPlr1) {
 	if(isPlr1) {
 		board[nextMove[0]][nextMove[1]] = "X";
@@ -121,8 +156,9 @@ function updateBoard(board,nextMove, isPlr1) {
 	}
 }
 
-/*
 
+/*
+Prints the board is the shape below if a string format. For testing.
  - | - | - 
 ---+---+---
  - | - | - 
@@ -148,6 +184,7 @@ function printBoard(b) {
 	return text;
 }
 
+//Prints the board for visualization on the HTML page
 function printBoardHTML(b) {
 	var text = "";
 	var col = "<br>---+---+---<br>";
