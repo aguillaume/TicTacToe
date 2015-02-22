@@ -74,7 +74,9 @@ function player(plr) {
 	this.move = function(b) {
 		for(var i = 0; i < b.length; i++) {
 			for(var j = 0; j < b[i].length; j++) {
-				if(b[i][j] === "-") {
+				if(b[i][j] !== "-") {
+					continue;
+				} else {
 					return [i, j];
 				}
 			}
@@ -85,11 +87,13 @@ function player(plr) {
 // Randomly finds an empty space and plays there
 function playerRand(plr) {
 	this.playerNum = plr;
-	
-	this.move = function(b) {
+
+	this.move = function findMove(b) {
 		var c = rand();
-		var r = rand();
-		if(b[c][r] === "-") {
+        var r = rand();
+		if (b[c][r] !== "-") {
+			return findMove(b);
+		} else {
 			return [c, r];
 		}
 	}
