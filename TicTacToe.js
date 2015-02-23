@@ -26,6 +26,7 @@ function game() {
 	var plr2 = new playerRand("2");
 	var isPlr1 = choseRand(); // choose start player
 	var nextMove;
+	var gameOver = false;
 
 	console.log(printBoard(board));
 
@@ -39,8 +40,20 @@ function game() {
 		if(isValidMove(nextMove, board)) {
 			if(isPlr1) {
 				board[nextMove[0]][nextMove[1]] = "X";
+				printMove();
+				gameOver = isGameWon(board, "X");
+				if (gameOver) {
+					alert("Game Over - Player 1 won!");
+					return;
+				}
 			}else{
 				board[nextMove[0]][nextMove[1]] = "O";
+				printMove();
+				gameOver = isGameWon(board, "O");
+                if (gameOver) {
+					alert("Game Over - Player 2 won!");
+					return;
+				}
 			}
 		}else{
 			if(isPlr1){
@@ -52,11 +65,14 @@ function game() {
 		}
 
 		isPlr1 = !isPlr1;
-		console.log(printBoard(board));
-		document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board);
 	}
+	alert("Game Over - Neither player won!");
+	return;
 
-
+	function printMove(){
+		console.log(printBoard(board));
+        document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board);
+	}
 }
 
 
@@ -94,7 +110,7 @@ function playerRand(plr) {
 	}
 	
 	function rand() {
-		return Math.floor((Math.random()*2)+1);
+		return Math.floor(Math.random()*3);
 	}
 }
 
@@ -167,5 +183,57 @@ function printBoardHTML(b) {
 		if(c < 2) text += col;
 	}
 	return text;
+}
+
+function isGameWon(board, type) {
+	var loopCounter = 0;
+	var rowTotal = 0;
+	var columnTotal = 0;
+	var diagonal1Total = 0;
+	var diagonal2Total = 0;
+
+	// counter for columns
+	for (var c=0; c<3; c++){
+		//counter for rows
+		for (var r=0; r<3; r++){
+			loopCounter++;
+			// test rows
+			if(board[c][r] === type){
+				rowTotal++;
+				if (rowTotal === 3) {
+					return true;
+				}
+			}
+			// test columns
+			if (board[r][c] === type){
+				columnTotal++;
+				if (columnTotal === 3) {
+					return true;
+				}
+			}
+			// test diagonals
+			if (r === c) {
+				if (board[r][c] === type){
+					diagonal1Total++;
+					if (diagonal1Total === 3) {
+						return true;
+					}
+				}
+				if (board[c][2-c] === type){
+					diagonal2Total++;
+					if (diagonal2Total === 3) {
+						return true;
+					}
+				}
+			}
+
+			// reset column and row counters
+			if (loopCounter%3 === 0) {
+				columnTotal = 0;
+				rowTotal = 0;
+			}
+		}
+	}
+	return false;
 }
 
