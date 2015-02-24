@@ -2,7 +2,7 @@
 
 // The main action of the Tic Tac Toe game runs in this function
 function game() {
-	//TODO create a baord object that holds functions like updateboard, and create board.
+	//TODO create a board object that holds functions like update board, and create board.
 	var board = createBoard(); // init TTT board 
 	var plr1 = new player("1"); // player 1 is 'X'
 	var plr2 = new playerRand("2"); // player 2 is 'O'
@@ -25,7 +25,10 @@ function game() {
 				printMove();
 				gameOver = isGameWon(board, "X");
 				if (gameOver) {
-					alert("Game Over - Player 1 won!");
+					document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
+					document.getElementById("ans").innerHTML += "<h2>PLAYER 1 WINS THE GAME!</h2>";
+					document.getElementById("plr1").innerHTML += "I";
+					console.log(printBoard(board));
 					return;
 				}
 			}else{
@@ -33,7 +36,10 @@ function game() {
 				printMove();
 				gameOver = isGameWon(board, "O");
                 if (gameOver) {
-					alert("Game Over - Player 2 won!");
+                	document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
+					document.getElementById("ans").innerHTML += "<h2>PLAYER 2 WINS THE GAME!</h2>";
+					document.getElementById("plr2").innerHTML += "I";
+					console.log(printBoard(board));
 					return;
 				}
 			}
@@ -54,27 +60,8 @@ function game() {
 			break;// not useful..
 		}
 
-		if(isPlr1) {
-			if(isWinner(board)) {
-				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
-				document.getElementById("ans").innerHTML += "<h2>PLAYER 1 WINS THE GAME!</h2>";
-				document.getElementById("plr1").innerHTML += "I";
-				console.log(printBoard(board));
-				break;
-			}
-		}else{
-			if(isWinner(board)) {
-				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
-				document.getElementById("ans").innerHTML += "<h2>PLAYER 2 WINS THE GAME!</h2>";
-				document.getElementById("plr2").innerHTML += "I";
-				console.log(printBoard(board));
-				break;
-			}
-		}
-
 		isPlr1 = !isPlr1;
 	}
-	alert("Game Over - Neither player won!");
 	return;
 
 	function printMove(){
@@ -231,6 +218,7 @@ function printBoardHTML(b) {
 	return text;
 }
 
+//Determines if there is a winner 
 function isGameWon(board, type) {
 	var loopCounter = 0;
 	var rowTotal = 0;
