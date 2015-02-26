@@ -8,7 +8,7 @@ function game() {
 	var plr2 = new playerRand("2"); // player 2 is 'O'
 	var isPlr1 = choseRand(); // choose start player
 	var nextMove;
-	var gameOver = false;
+	var gameOver = -1;
 
 	console.log(printBoard(board));
 
@@ -20,28 +20,46 @@ function game() {
 		}
 
 		if(isValidMove(nextMove, board)) {
+		    //Player 1 goes
 			if(isPlr1) {
 				board[nextMove[0]][nextMove[1]] = "X";
 				printMove();
 				gameOver = isGameWon(board, "X");
-				if (gameOver) {
+				if (gameOver === 1) {
 					document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
 					document.getElementById("ans").innerHTML += "<h2>PLAYER 1 WINS THE GAME!</h2>";
 					document.getElementById("plr1").innerHTML += "I";
 					console.log(printBoard(board));
 					return;
+				}else if (gameOver === 0) {
+				    document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
+                    document.getElementById("ans").innerHTML += "<h2>NO ONE WINS. ITS A TIE!</h2>";
+                    document.getElementById("tie").innerHTML += "I";
+                    console.log(printBoard(board));
+                    return;
+				}else{
+				    //for good measure
 				}
+			//Player 2 goes
 			}else{
 				board[nextMove[0]][nextMove[1]] = "O";
 				printMove();
 				gameOver = isGameWon(board, "O");
-                if (gameOver) {
+                if (gameOver === 1) {
                 	document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
 					document.getElementById("ans").innerHTML += "<h2>PLAYER 2 WINS THE GAME!</h2>";
 					document.getElementById("plr2").innerHTML += "I";
 					console.log(printBoard(board));
 					return;
-				}
+				}else if (gameOver === 0) {
+                     document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
+                     document.getElementById("ans").innerHTML += "<h2>NO ONE WINS. ITS A TIE!</h2>";
+                     document.getElementById("tie").innerHTML += "I";
+                     console.log(printBoard(board));
+                     return;
+                 }else{
+                     //for good measure
+                 }
 			}
 		}else{
 			if(isPlr1){
@@ -219,12 +237,16 @@ function printBoardHTML(b) {
 }
 
 //Determines if there is a winner 
+//+1 win, 0 tie, -1 lose
 function isGameWon(board, type) {
 	var loopCounter = 0;
 	var rowTotal = 0;
 	var columnTotal = 0;
 	var diagonal1Total = 0;
 	var diagonal2Total = 0;
+	var WIN = 1;
+	var TIE = 0;
+	var LOSE = 1;
 
 	// counter for columns
 	for (var c=0; c<3; c++){
@@ -235,14 +257,14 @@ function isGameWon(board, type) {
 			if(board[c][r] === type){
 				rowTotal++;
 				if (rowTotal === 3) {
-					return true;
+					return WIN;
 				}
 			}
 			// test columns
 			if (board[r][c] === type){
 				columnTotal++;
 				if (columnTotal === 3) {
-					return true;
+					return WIN;
 				}
 			}
 			// test diagonals
@@ -250,13 +272,13 @@ function isGameWon(board, type) {
 				if (board[r][c] === type){
 					diagonal1Total++;
 					if (diagonal1Total === 3) {
-						return true;
+						return WIN;
 					}
 				}
 				if (board[c][2-c] === type){
 					diagonal2Total++;
 					if (diagonal2Total === 3) {
-						return true;
+						return WIN;
 					}
 				}
 			}
@@ -268,6 +290,6 @@ function isGameWon(board, type) {
 			}
 		}
 	}
-	return false;
+	return LOSE;
 }
 
