@@ -246,7 +246,8 @@ function isGameWon(board, type) {
 	var diagonal2Total = 0;
 	var WIN = 1;
 	var TIE = 0;
-	var LOSE = 1;
+	var NOTOVER = 1;
+	var isEmpty = true;
 
 	// counter for columns
 	for (var c=0; c<3; c++){
@@ -282,6 +283,12 @@ function isGameWon(board, type) {
 					}
 				}
 			}
+			
+			if (board[c][r] === '-') {
+			    isEmpty = true;
+			}else{
+			    isEmpty = false;
+			}
 
 			// reset column and row counters
 			if (loopCounter%3 === 0) {
@@ -290,6 +297,10 @@ function isGameWon(board, type) {
 			}
 		}
 	}
-	return LOSE;
+	//check if the board is full but there are no winners
+	if(isEmpty === false) {
+	    return TIE;
+	}
+	return NOTOVER;
 }
 
