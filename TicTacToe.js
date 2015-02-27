@@ -27,7 +27,7 @@ function game() {
 				if (gameOver) {
 					setInnerHTMLById("ans", getInnerHTMLById("ans") + "<hr>" + printBoardHTML(board, nextMove));
 					setInnerHTMLById("ans", getInnerHTMLById("ans") + "<h2>PLAYER 1 WINS THE GAME!</h2>");
-					setInnerHTMLById("ans", getInnerHTMLById("plr1") + "I";
+					setInnerHTMLById("plr1", getInnerHTMLById("plr1") + "I");
 
 					// document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
 					// document.getElementById("ans").innerHTML += "<h2>PLAYER 1 WINS THE GAME!</h2>";
@@ -42,7 +42,7 @@ function game() {
                 if (gameOver) {
                 	setInnerHTMLById("ans", getInnerHTMLById("ans") + "<hr>" + printBoardHTML(board, nextMove));
 					setInnerHTMLById("ans", getInnerHTMLById("ans") + "<h2>PLAYER 2 WINS THE GAME!</h2>");
-					setInnerHTMLById("ans", getInnerHTMLById("plr1") + "I";
+					setInnerHTMLById("plr2", getInnerHTMLById("plr2") + "I");
 
     				//document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
 					// document.getElementById("ans").innerHTML += "<h2>PLAYER 2 WINS THE GAME!</h2>";
