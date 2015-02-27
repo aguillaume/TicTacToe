@@ -25,9 +25,13 @@ function game() {
 				printMove();
 				gameOver = isGameWon(board, "X");
 				if (gameOver) {
-					document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
-					document.getElementById("ans").innerHTML += "<h2>PLAYER 1 WINS THE GAME!</h2>";
-					document.getElementById("plr1").innerHTML += "I";
+					setInnerHTMLById("ans", getInnerHTMLById("ans") + "<hr>" + printBoardHTML(board, nextMove));
+					setInnerHTMLById("ans", getInnerHTMLById("ans") + "<h2>PLAYER 1 WINS THE GAME!</h2>");
+					setInnerHTMLById("ans", getInnerHTMLById("plr1") + "I";
+
+					// document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
+					// document.getElementById("ans").innerHTML += "<h2>PLAYER 1 WINS THE GAME!</h2>";
+					// document.getElementById("plr1").innerHTML += "I";
 					console.log(printBoard(board));
 					return;
 				}
@@ -36,9 +40,13 @@ function game() {
 				printMove();
 				gameOver = isGameWon(board, "O");
                 if (gameOver) {
-                	document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
-					document.getElementById("ans").innerHTML += "<h2>PLAYER 2 WINS THE GAME!</h2>";
-					document.getElementById("plr2").innerHTML += "I";
+                	setInnerHTMLById("ans", getInnerHTMLById("ans") + "<hr>" + printBoardHTML(board, nextMove));
+					setInnerHTMLById("ans", getInnerHTMLById("ans") + "<h2>PLAYER 2 WINS THE GAME!</h2>");
+					setInnerHTMLById("ans", getInnerHTMLById("plr1") + "I";
+
+    				//document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board, nextMove);
+					// document.getElementById("ans").innerHTML += "<h2>PLAYER 2 WINS THE GAME!</h2>";
+					// document.getElementById("plr2").innerHTML += "I";
 					console.log(printBoard(board));
 					return;
 				}
@@ -47,14 +55,22 @@ function game() {
 			if(isPlr1){
 				console.log("Invalid move from Player 1");
 				console.log(printBoard(board));
-				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board);
-				document.getElementById("ans").innerHTML += "Invalid move from Player 1<br><h2>PLAYER 2 WINS THE GAME BECAUSE OF FORFAIT</h2>";
+
+				setInnerHTMLById("ans", getInnerHTMLById("ans") + "<hr>" + printBoardHTML(board, nextMove));
+				setInnerHTMLById("ans", getInnerHTMLById("ans") + "Invalid move from Player 1<br><h2>PLAYER 2 WINS THE GAME BECAUSE OF FORFAIT</h2>");
+				
+				// document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board);
+				// document.getElementById("ans").innerHTML += "Invalid move from Player 1<br><h2>PLAYER 2 WINS THE GAME BECAUSE OF FORFAIT</h2>";
 				break;
 			}else{
 				console.log("Invalid move from Player 2");
 				console.log(printBoard(board));
-				document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board);
-				document.getElementById("ans").innerHTML += "Invalid move from Player 2<br><h2>PLAYER 1 WINS THE GAME BECAUSE OF FORFAIT</h2>";
+
+				setInnerHTMLById("ans", getInnerHTMLById("ans") + "<hr>" + printBoardHTML(board, nextMove));
+				setInnerHTMLById("ans", getInnerHTMLById("ans") + "Invalid move from Player 2<br><h2>PLAYER 1 WINS THE GAME BECAUSE OF FORFAIT</h2>");
+
+				// document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board);
+				// document.getElementById("ans").innerHTML += "Invalid move from Player 2<br><h2>PLAYER 1 WINS THE GAME BECAUSE OF FORFAIT</h2>";
 				break;
 			}
 			break;// not useful..
@@ -269,5 +285,18 @@ function isGameWon(board, type) {
 		}
 	}
 	return false;
+}
+
+
+//Helper function
+//sets the inner HTML of a given id to text
+function setInnerHTMLById(id, text) {
+	document.getElementById(id).innerHTML = text;
+}
+
+//helper function
+//gets the innerHTML of a given id
+function getInnerHTMLById(id) {
+	return document.getElementById(id).innerHTML;
 }
 
