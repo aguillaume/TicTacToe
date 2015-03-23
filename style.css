@@ -1,4 +1,56 @@
-p {
-	font-family: "Courier New", Courier, monospace;
+html,
+body,
+h1,
+p,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    font-family: "Courier New", Courier, monospace;
 }
 
+html {
+    background-color: RGB(234, 234, 234);
+}
+
+body {
+    background-color: snow;
+    width: 80%;
+    max-width: 1000px;
+    min-width: 300px;
+    margin: 0 auto 0 auto;
+    padding: 15px 25px 15px 25px;
+}
+
+progressBar {
+    display: block;
+    border-radius: 7px;
+    background-color: lightgray;
+    margin: 15px 25px 10px 25px;
+    padding: 12px;
+    font-size: 0;
+}
+
+score {
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    padding: 3px 0 1px 0;
+}
+
+progressBar #plr1Win {
+    background-color: green;
+    width: 60%;
+    border-radius: 5px 0 0 5px;
+}
+
+progressBar #tie {
+    background-color: orange;
+    width: 10%;
+}
+
+progressBar #plr2Win {
+    background-color: red;
+    width: 30%;
+    border-radius: 0 5px 5px 0;
+}
