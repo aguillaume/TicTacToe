@@ -227,7 +227,6 @@ var TICTACTOE = (function () {
     var scorePlr1 = 0;
     var scorePlr2 = 0;
     var scoreTie = 0;
-    var scoreTot = 0;
 
     var game = function () {
         //TODO create a board object that holds functions like update board, and create board.
@@ -310,16 +309,14 @@ var TICTACTOE = (function () {
         function updateWinCounter(player, id) {
             if (id) {
                 setInnerHTMLById("ans", getInnerHTMLById("ans") + "<h2>PLAYER " + player + " WINS THE GAME!</h2>");
-                document.getElementById(id).innerHTML += "I";
             } else {
                 setInnerHTMLById("ans", getInnerHTMLById("ans") + "<h2>NO ONE WINS. ITS A TIE!</h2>");
-                document.getElementById("tie").innerHTML += "I";
             }
         }
 
         //new update win counter function
         function updateProgessBar() {
-            scoreTot = scorePlr1 + scorePlr2 + scoreTie; //scoreTot could just be a local var, instead of global.
+            var scoreTot = scorePlr1 + scorePlr2 + scoreTie;
             var scrP1 = scorePlr1 / scoreTot * 100;
             var scrP2 = scorePlr2 / scoreTot * 100;
             var scrTie = scoreTie / scoreTot * 100;

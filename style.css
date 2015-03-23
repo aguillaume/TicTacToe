@@ -22,11 +22,19 @@ body {
     padding: 15px 25px 15px 25px;
 }
 
+p {
+    line-height: 1.5em;
+}
+
+holder {
+    display: block;
+    margin: 15px 25px 12px 25px;
+}
+
 progressBar {
     display: block;
     border-radius: 7px;
     background-color: lightgray;
-    margin: 15px 25px 10px 25px;
     padding: 12px;
     font-size: 0;
 }
@@ -48,6 +56,6 @@ progressBar .tie {
 }
 
 progressBar .plr2Win {
-    background-color: blueviolet;
+    background-color: mediumpurple;
     border-radius: 0 5px 5px 0;
 }

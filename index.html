@@ -14,25 +14,24 @@
     <p>you will need to reload the page to clear the screen, otherwise the games will keep on adding up after the last one.</p>
     <p>Player 1 is 'X'
         <br>Player 2 is 'O'</p>
-    <h2>Score</h2>
-    <h3 id="plr1">P1 >> </h3>
-    <h3 id="plr2">P2 >> </h3>
-    <h3 id="tie">TIES >> </h3>
 
-    <progressBar>
-        <score class="plr1Win">
-            <lable></lable>
-            <player></player>
-        </score>
-        <score class="tie">
-            <lable></lable>
-            <player></player>
-        </score>
-        <score class="plr2Win">
-            <lable></lable>
-            <player></player>
-        </score>
-    </progressBar>
+    <holder>
+        <strong>Score</strong>
+        <progressBar>
+            <score class="plr1Win">
+                <lable></lable>
+                <player></player>
+            </score>
+            <score class="tie">
+                <lable></lable>
+                <player></player>
+            </score>
+            <score class="plr2Win">
+                <lable></lable>
+                <player></player>
+            </score>
+        </progressBar>
+    </holder>
 
     <button onclick="TICTACTOE.game()">start</button>
     <button onclick="TICTACTOE.game10()">Play 10 games</button>
