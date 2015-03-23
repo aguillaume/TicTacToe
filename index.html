@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<link rel="stylesheet" type="text/stylesheet" href="style.css">
-<script src="TicTacToe.js"></script>
+    <link rel="stylesheet" type="text/stylesheet" href="style.css">
+
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="TicTacToe.js"></script>
 
 </head>
 
 <body>
     <h1>Play a game of Tic Tac Toe</h1>
     <p>you will need to reload the page to clear the screen, otherwise the games will keep on adding up after the last one.</p>
-    <p>Player 1 is 'X'<br>Player 2 is 'O'</p>
+    <p>Player 1 is 'X'
+        <br>Player 2 is 'O'</p>
     <h2>Score</h2>
     <h3 id="plr1">P1 >> </h3>
     <h3 id="plr2">P2 >> </h3>
     <h3 id="tie">TIES >> </h3>
-    
+
     <progressBar>
-            <score id="plr1Win">X wins</score>
-            <score id="tie">TIEs</score>
-            <score id="plr2Win">O wins</score>
+        <score id="plr1Win">X wins</score>
+        <score id="tie">TIEs</score>
+        <score id="plr2Win">O wins</score>
     </progressBar>
 
-<button onclick="TICTACTOE.game()">start</button>
-<button onclick="TICTACTOE.game10()">Play 10 games</button>
-<p id="ans" stle="font-family: 'Courier New', Courier, monospace;"></p>
+    <button onclick="TICTACTOE.game()">start</button>
+    <button onclick="TICTACTOE.game10()">Play 10 games</button>
+    <p id="ans" stle="font-family: 'Courier New', Courier, monospace;"></p>
 
 
 </body>
