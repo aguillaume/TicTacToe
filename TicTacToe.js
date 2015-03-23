@@ -79,31 +79,6 @@ var TICTACTOE = (function(){
 		}
 	};
 
-/*	//Determines if there is a winner
-	var isWinner = function(board) {
-		var b = board; // for clarity
-		//check diagonal
-		if(b[0][0] != "-" && b[0][0] === b[1][1] && b[1][1] === b[2][2]) {
-			return true;
-		//check diagonal
-		}else if(b[0][2] != "-" && b[0][2] === b[1][1] && b[1][1] === b[2][0]){
-			return true;
-		}else{
-			for(var i = 0; i < 3; i++) {
-				//check all horizontal
-				if(b[i][0] != "-" && b[i][0] === b[i][1] && b[i][1] === b[i][2]) {
-					return true;
-				//check all verticals
-				}else if(b[0][i] != "-" && b[0][i] === b[1][i] && b[1][i] === b[2][i]){
-					return true;
-				}else{
-					continue;
-				}
-			}
-			return false;
-		}
-	};*/
-
 	// changes an empty space to the most recent move.
 	var updateBoard = function(board,nextMove, isPlr1) {
 		if(isPlr1) {
