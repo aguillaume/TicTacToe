@@ -38,19 +38,16 @@ score {
     padding: 3px 0 1px 0;
 }
 
-progressBar #plr1Win {
-    background-color: green;
-    width: 60%;
+progressBar .plr1Win {
+    background-color: deepskyblue;
     border-radius: 5px 0 0 5px;
 }
 
-progressBar #tie {
+progressBar .tie {
     background-color: orange;
-    width: 10%;
 }
 
-progressBar #plr2Win {
-    background-color: red;
-    width: 30%;
+progressBar .plr2Win {
+    background-color: blueviolet;
     border-radius: 0 5px 5px 0;
 }

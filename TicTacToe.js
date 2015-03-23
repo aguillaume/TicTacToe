@@ -12,6 +12,7 @@ var TICTACTOE = (function () {
     // Finds the 1st available space and plays
     function player(plr) {
         this.playerNum = plr;
+        this.playerName = "Bumd1";
 
         this.move = function (b) {
             for (var i = 0; i < b.length; i++) {
@@ -28,6 +29,7 @@ var TICTACTOE = (function () {
 
     function playerRand(plr) {
         this.playerNum = plr;
+        this.playerName = "Bumb Rand";
 
         this.move = function (b) {
             var c = randC(b);
@@ -215,6 +217,18 @@ var TICTACTOE = (function () {
         return document.getElementById(id).innerHTML;
     };
 
+    /*
+    @Ruta - know that this is bad pratice, but I need to keep track of these outside of game.
+    Maybe they should be in either a board function or in the player function or something. I will try and fix it later.
+    */
+
+    //TODO remove these global variables.
+
+    var scorePlr1 = 0;
+    var scorePlr2 = 0;
+    var scoreTie = 0;
+    var scoreTot = 0;
+
     var game = function () {
         //TODO create a board object that holds functions like update board, and create board.
         var board = createBoard(); // init TTT board
@@ -223,6 +237,10 @@ var TICTACTOE = (function () {
         var isPlr1 = choseRand(); // choose start player
         var nextMove;
         var gameOver = -1;
+
+        //set progress bar player name with jQuery
+        $(".plr1Win player").text(plr1.playerName);
+        $(".plr2Win player").text(plr2.playerName);
 
         //console.log(printBoard(board));
 
@@ -239,11 +257,15 @@ var TICTACTOE = (function () {
                     board[nextMove[0]][nextMove[1]] = "X";
                     printMove();
                     gameOver = isGameWon(board, "X");
-                    if (gameOver === 1) {
+                    if (gameOver === 1) { //plr1 wins
                         updateWinCounter(1, "plr1");
+                        scorePlr1++;
+                        updateProgessBar(plr1.playerName);
                         return;
-                    } else if (gameOver === 0) {
+                    } else if (gameOver === 0) { // game ends in tie
                         updateWinCounter();
+                        scoreTie++;
+                        updateProgessBar();
                         return;
                     } else {
                         //for good measure
@@ -253,11 +275,15 @@ var TICTACTOE = (function () {
                     board[nextMove[0]][nextMove[1]] = "O";
                     printMove();
                     gameOver = isGameWon(board, "O");
-                    if (gameOver === 1) {
+                    if (gameOver === 1) { //plr2 wins
                         updateWinCounter(2, "plr2");
+                        scorePlr2++;
+                        updateProgessBar(plr2.playerName);
                         return;
-                    } else if (gameOver === 0) {
+                    } else if (gameOver === 0) { //game ends in a tie
                         updateWinCounter();
+                        scoreTie++;
+                        updateProgessBar();
                         return;
                     } else {
                         //for good measure
@@ -289,6 +315,29 @@ var TICTACTOE = (function () {
                 setInnerHTMLById("ans", getInnerHTMLById("ans") + "<h2>NO ONE WINS. ITS A TIE!</h2>");
                 document.getElementById("tie").innerHTML += "I";
             }
+        }
+
+        //new update win counter function
+        function updateProgessBar() {
+            scoreTot = scorePlr1 + scorePlr2 + scoreTie; //scoreTot could just be a local var, instead of global.
+            var scrP1 = scorePlr1 / scoreTot * 100;
+            var scrP2 = scorePlr2 / scoreTot * 100;
+            var scrTie = scoreTie / scoreTot * 100;
+
+            //jQuery hide or show if the progress bar if no value yet
+            (scrP1 == 0) ? $(".plr1Win").hide(): $(".plr1Win").show();
+            (scrP2 == 0) ? $(".plr2Win").hide(): $(".plr2Win").show();
+            (scrTie == 0) ? $(".tie").hide(): $(".tie").show();
+
+            //jQuery change width of progress bar on the fly.
+            $(".plr1Win").css("width", "" + scrP1 + "%");
+            $(".plr1Win lable").text("" + Math.floor(scrP1) + "%");
+
+            $(".plr2Win").css("width", "" + scrP2 + "%");
+            $(".plr2Win lable").text("" + Math.floor(scrP2) + "%");
+
+            $(".tie").css("width", "" + scrTie + "%");
+            $(".tie lable").text("" + Math.floor(scrTie) + "%");
         }
 
         function invalidMove(player) {
