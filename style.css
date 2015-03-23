@@ -59,3 +59,23 @@ progressBar .plr2Win {
     background-color: mediumpurple;
     border-radius: 0 5px 5px 0;
 }
+
+gameHolder {
+    display: block;
+    margin: 20px 0 0 0;
+}
+
+game {
+    display: block;
+    margin: 0 0 15px 0;
+}
+
+game h5 {
+    margin: 8px 0 8px 0;
+}
+
+move {
+    display: inline-block;
+    font-size: 12px;
+    margin: 0 12px 8px 0;
+}

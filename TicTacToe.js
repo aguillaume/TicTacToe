@@ -12,7 +12,7 @@ var TICTACTOE = (function () {
     // Finds the 1st available space and plays
     function player(plr) {
         this.playerNum = plr;
-        this.playerName = "Bumd1";
+        this.playerName = "Dumb1";
 
         this.move = function (b) {
             for (var i = 0; i < b.length; i++) {
@@ -29,7 +29,7 @@ var TICTACTOE = (function () {
 
     function playerRand(plr) {
         this.playerNum = plr;
-        this.playerName = "Bumb Rand";
+        this.playerName = "Dumb Rand";
 
         this.move = function (b) {
             var c = randC(b);
@@ -135,6 +135,28 @@ var TICTACTOE = (function () {
         }
         return text;
     };
+
+    var printBoardHTML2 = function (b, isNewGame) {
+//        var isNewGame = true;
+        var text = "";
+        var col = "<br>---+---+---<br>";
+        var row = "&nbsp|";
+
+        for (var c = 0; c < b.length; c++) {
+            for (var r = 0; r < b[c].length; r++) {
+                if (r < 2) {
+                    text += "&nbsp" + b[c][r] + row;
+                } else {
+                    text += "&nbsp" + b[c][r];
+                }
+            }
+            if (c < 2) text += col;
+        }
+
+        if (isNewGame) $("gameHolder").append("<game></game>");
+
+        $("game").eq(-1).append("<move>" + text + "</move");
+    }
 
     //Determines if there is a winner
     //+1 win, 0 tie, -1 lose
@@ -254,17 +276,17 @@ var TICTACTOE = (function () {
                 //Player 1 goes
                 if (isPlr1) {
                     board[nextMove[0]][nextMove[1]] = "X";
-                    printMove();
+                    printMove(i);
                     gameOver = isGameWon(board, "X");
                     if (gameOver === 1) { //plr1 wins
-                        updateWinCounter(1, "plr1");
                         scorePlr1++;
                         updateProgessBar(plr1.playerName);
+                        $("game").eq(-1).append("<h5>PLAYER 1 WINS THE GAME!</h5>");
                         return;
                     } else if (gameOver === 0) { // game ends in tie
-                        updateWinCounter();
                         scoreTie++;
                         updateProgessBar();
+                        $("game").eq(-1).append("<h5>NO ONE WINS. ITS A TIE!</h5>");
                         return;
                     } else {
                         //for good measure
@@ -272,17 +294,17 @@ var TICTACTOE = (function () {
                     //Player 2 goes
                 } else {
                     board[nextMove[0]][nextMove[1]] = "O";
-                    printMove();
+                    printMove(i);
                     gameOver = isGameWon(board, "O");
                     if (gameOver === 1) { //plr2 wins
-                        updateWinCounter(2, "plr2");
                         scorePlr2++;
                         updateProgessBar(plr2.playerName);
+                        $("game").eq(-1).append("<h5>PLAYER 2 WINS THE GAME!</h5>");
                         return;
                     } else if (gameOver === 0) { //game ends in a tie
-                        updateWinCounter();
                         scoreTie++;
                         updateProgessBar();
+                        $("game").eq(-1).append("<h5>NO ONE WINS. ITS A TIE!</h5>");
                         return;
                     } else {
                         //for good measure
@@ -300,18 +322,12 @@ var TICTACTOE = (function () {
 
             isPlr1 = !isPlr1;
         }
-        return;
+        return; //What is this?
 
-        function printMove() {
-            document.getElementById("ans").innerHTML += "<hr>" + printBoardHTML(board);
-        }
-
-        function updateWinCounter(player, id) {
-            if (id) {
-                setInnerHTMLById("ans", getInnerHTMLById("ans") + "<h2>PLAYER " + player + " WINS THE GAME!</h2>");
-            } else {
-                setInnerHTMLById("ans", getInnerHTMLById("ans") + "<h2>NO ONE WINS. ITS A TIE!</h2>");
-            }
+        function printMove(moveNumber, gameOver, player) {
+            //new print move with jQuery
+            var isNewGame = (moveNumber == 1) ? true : false;
+            $("gameHolder").append(printBoardHTML2(board, isNewGame));
         }
 
         //new update win counter function
@@ -338,8 +354,7 @@ var TICTACTOE = (function () {
         }
 
         function invalidMove(player) {
-            setInnerHTMLById("ans", getInnerHTMLById("ans") + "<hr>" + printBoardHTML(board, nextMove));
-            setInnerHTMLById("ans", getInnerHTMLById("ans") + "Invalid move from Player " + player + "<br><h2>OPPONENT WINS THE GAME BECAUSE OF FORFAIT</h2>");
+            $("game").eq(-1).append("<h3>Invalid move from Player " + player + "<br>OPPONENT WINS THE GAME BECAUSE OF FORFAIT</h3>");
         }
     }
 
