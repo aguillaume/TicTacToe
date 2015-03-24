@@ -100,8 +100,8 @@ var TICTACTOE = (function () {
 	 - | - | -
 
 	*/
-
-    var printBoard = function (b) {
+   /*@Guillaume - remove functions you are not using, otherwise the code will get very cluttered */
+   /* var printBoard = function (b) {
         var text = "";
         var col = "\n---+---+---\n";
         var row = " |";
@@ -134,7 +134,7 @@ var TICTACTOE = (function () {
             if (c < 2) text += col;
         }
         return text;
-    };
+    };*/
 
     var printBoardHTML2 = function (b, isNewGame) {
 //        var isNewGame = true;
@@ -153,9 +153,10 @@ var TICTACTOE = (function () {
             if (c < 2) text += col;
         }
 
+	 /*@Guillaume - it's slightly odd to be mixing jQuery and Javascript, but let's roll with it :) */
         if (isNewGame) $("gameHolder").append("<game></game>");
 
-        $("game").eq(-1).append("<move>" + text + "</move");
+        $("game").eq(-1).append("<move>" + text + "</move>");
     }
 
     //Determines if there is a winner
@@ -242,9 +243,10 @@ var TICTACTOE = (function () {
     /*
     @Ruta - know that this is bad pratice, but I need to keep track of these outside of game.
     Maybe they should be in either a board function or in the player function or something. I will try and fix it later.
+    @Guillaume - these are not global, they are inside TICTACTOE object scope and can not be accessed from outside, because
+    you do not return them below (only game and game10 are returned). Try to access them (do something like alert(TICTACTOE.scorePlr1)
+    and you will see that you get undefined back, which is not the case for game and game10.
     */
-
-    //TODO remove these global variables.
 
     var scorePlr1 = 0;
     var scorePlr2 = 0;
@@ -322,7 +324,9 @@ var TICTACTOE = (function () {
 
             isPlr1 = !isPlr1;
         }
-        return; //What is this?
+        return; /*What is this? @Guillaume - this stops the game (once the loop finished executing, i.e. it went through
+        all nine cells, you want to stop the game - if everything goes well this return should not be reached, one of the
+        the returns within the loop should execute first*/
 
         function printMove(moveNumber, gameOver, player) {
             //new print move with jQuery
