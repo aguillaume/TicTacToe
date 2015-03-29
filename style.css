@@ -1,4 +1,81 @@
-p {
-	font-family: "Courier New", Courier, monospace;
+html,
+body,
+h1,
+p,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    font-family: "Courier New", Courier, monospace;
 }
 
+html {
+    background-color: RGB(234, 234, 234);
+}
+
+body {
+    background-color: snow;
+    width: 80%;
+    max-width: 1000px;
+    min-width: 300px;
+    margin: 0 auto 0 auto;
+    padding: 15px 25px 15px 25px;
+}
+
+p {
+    line-height: 1.5em;
+}
+
+holder {
+    display: block;
+    margin: 15px 25px 12px 25px;
+}
+
+progressBar {
+    display: block;
+    border-radius: 7px;
+    background-color: lightgray;
+    padding: 12px;
+    font-size: 0;
+}
+
+score {
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    padding: 3px 0 1px 0;
+}
+
+progressBar .plr1Win {
+    background-color: deepskyblue;
+    border-radius: 5px 0 0 5px;
+}
+
+progressBar .tie {
+    background-color: orange;
+}
+
+progressBar .plr2Win {
+    background-color: mediumpurple;
+    border-radius: 0 5px 5px 0;
+}
+
+gameHolder {
+    display: block;
+    margin: 20px 0 0 0;
+}
+
+game {
+    display: block;
+    margin: 0 0 15px 0;
+}
+
+game h5 {
+    margin: 8px 0 8px 0;
+}
+
+move {
+    display: inline-block;
+    font-size: 12px;
+    margin: 0 12px 8px 0;
+}
