@@ -100,41 +100,6 @@ var TICTACTOE = (function () {
 	 - | - | -
 
 	*/
-   /*@Guillaume - remove functions you are not using, otherwise the code will get very cluttered */
-   /* var printBoard = function (b) {
-        var text = "";
-        var col = "\n---+---+---\n";
-        var row = " |";
-        for (var c = 0; c < b.length; c++) {
-            for (var r = 0; r < b[c].length; r++) {
-                if (r < 2) {
-                    text += " " + b[c][r] + row;
-                } else {
-                    text += " " + b[c][r];
-                }
-            }
-            if (c < 2) text += col;
-        }
-        return text;
-    };
-
-    //Prints the board for visualization on the HTML page
-    var printBoardHTML = function (b) {
-        var text = "";
-        var col = "<br>---+---+---<br>";
-        var row = "&nbsp|";
-        for (var c = 0; c < b.length; c++) {
-            for (var r = 0; r < b[c].length; r++) {
-                if (r < 2) {
-                    text += "&nbsp" + b[c][r] + row;
-                } else {
-                    text += "&nbsp" + b[c][r];
-                }
-            }
-            if (c < 2) text += col;
-        }
-        return text;
-    };*/
 
     var printBoardHTML2 = function (b, isNewGame) {
 //        var isNewGame = true;
@@ -153,7 +118,6 @@ var TICTACTOE = (function () {
             if (c < 2) text += col;
         }
 
-	 /*@Guillaume - it's slightly odd to be mixing jQuery and Javascript, but let's roll with it :) */
         if (isNewGame) $("gameHolder").append("<game></game>");
 
         $("game").eq(-1).append("<move>" + text + "</move>");
